@@ -1,4 +1,4 @@
-# stylebone
+# stone
 
 `tagline - TBD`
 
@@ -17,7 +17,7 @@ The library isn't limited to the two platforms as you can find other **handlers*
 
 ## Roadmap
 
-- [ ] Create style utilities
+- [x] Create style utilities
 - [ ] Create babel plugin for converting the style into a stylesheets , this can involve transpiling it to CSS or transpiling it to RN Stylesheet.Create
 - [ ] Add handling for color manipulation
 - [ ] Add more needed plugins for the same
