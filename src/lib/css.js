@@ -22,7 +22,11 @@ export function css(theme, adaptors) {
     const classHash = hash(cssString);
     cssString = `.${classHash} ${cssString}`;
 
-    const data = adaptors.css({ ast: parse(cssString), classHash });
+    const data = adaptors.css({
+      ast: parse(cssString),
+      classHash,
+      theme: theme,
+    });
 
     return data;
   };
