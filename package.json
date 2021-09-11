@@ -58,6 +58,7 @@
     "access": "public"
   },
   "dependencies": {
+    "@barelyhuman/tocolor": "^0.0.3",
     "css": "^3.0.0",
     "deep-map-object": "^0.0.5"
   },

@@ -1,18 +1,17 @@
-import { CSSWebInlineAdaptor, decorate } from "../dist/index";
+import { decorate, CSSWebIOAdaptor } from "../../dist";
 
 const themeConfig = {
   colors: {
     base: "#ffffff",
     text: "#000000",
     button: {
-      base: "#000000",
-      text: "#ffffff",
-      hover: "#ffffff",
+      base: "#f8f9fa",
+      text: "#495057",
     },
   },
   dimensions: {
     button: {
-      radius: "2px",
+      radius: "6px",
     },
     sm: "5px",
     md: "1em",
@@ -22,15 +21,18 @@ const themeConfig = {
 };
 
 const adaptors = {
-  css: CSSWebInlineAdaptor,
+  css: CSSWebIOAdaptor({
+    output: __dirname + "/demo.css",
+    URL: "http://localhost:5000",
+  }),
 };
 
 const { css } = decorate(themeConfig, adaptors);
 
 const buttonStyle = css`
-  background-color: ${(theme) => theme.colors.button.base.lighter(50).value()};
+  background-color: ${(theme) => theme.colors.button.base.value()};
   color: ${(theme) => theme.colors.button.text.value()};
-  border: 2px solid rgba(12, 12, 13, 0.1);
+  border: 2px solid ${(theme) => theme.colors.button.base.value()};
   border-radius: ${(theme) =>
     theme.dimensions.button.radius.value() +
     theme.dimensions.button.radius.unit()};
@@ -43,10 +45,9 @@ const buttonStyle = css`
 `;
 
 const buttonStyleHover = css`
-  border-color: #000;
   outline: #000;
   color: #000;
-  background: #fff;
+  background: ${(theme) => theme.colors.button.base.darker(10).value()};
 `;
 
 console.log(buttonStyle);
@@ -54,14 +55,14 @@ console.log(buttonStyle);
 const button = document.createElement("button");
 
 button.innerText = "Button";
-Object.assign(button.style, buttonStyle);
+button.classList.add(buttonStyle);
 
 button.addEventListener("mouseover", () => {
-  Object.assign(button.style, buttonStyleHover);
+  button.classList.add(buttonStyleHover);
 });
 
 button.addEventListener("mouseout", () => {
-  Object.assign(button.style, buttonStyle);
+  button.classList.remove(buttonStyleHover);
 });
 
 document.body.appendChild(button);
