@@ -34,7 +34,7 @@ export function decorate(themeConfig, adaptors) {
 
 function decorateColor(color) {
   let ctx = {};
-  ctx.hex = normalizeHex(color);
+  ctx.hex = "#" + normalizeHex(color);
   ctx.value = () => ctx.hex;
   ctx.toRGB = () => hexToRGB(ctx.hex);
   ctx.toHSL = () => hexToHSL(ctx.hex);
