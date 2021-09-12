@@ -1,7 +1,7 @@
 import { stringify } from "../lib/parse";
 
 export function CSSWebIOAdaptor(
-  options = { output: "output.css", URL: "http://localhost:5000" }
+  options = { output: "output.css", URL: "http://localhost:5000/css" }
 ) {
   return function (tokens) {
     if (process.env.NODE_ENV === "production") {

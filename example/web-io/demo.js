@@ -23,16 +23,18 @@ const themeConfig = {
 const adaptors = {
   css: CSSWebIOAdaptor({
     output: __dirname + "/demo.css",
-    URL: "http://localhost:5000",
+    URL: "http://localhost:5000/css",
   }),
 };
 
-const { css } = decorate(themeConfig, adaptors);
+const { colors, css } = decorate(themeConfig, adaptors);
+
+const primaryButtonColor = colors.button.base.darker(20);
 
 const buttonStyle = css`
-  background-color: ${(theme) => theme.colors.button.base.value()};
-  color: ${(theme) => theme.colors.button.text.value()};
-  border: 2px solid ${(theme) => theme.colors.button.base.value()};
+  background-color: ${primaryButtonColor.value()};
+  color: ${(theme) => theme.colors.button.text.darker(20).value()};
+  border: 2px solid ${primaryButtonColor.value()};
   border-radius: ${(theme) =>
     theme.dimensions.button.radius.value() +
     theme.dimensions.button.radius.unit()};
@@ -47,7 +49,8 @@ const buttonStyle = css`
 const buttonStyleHover = css`
   outline: #000;
   color: #000;
-  background: ${(theme) => theme.colors.button.base.darker(10).value()};
+  background: ${primaryButtonColor.lighter(10).value()};
+  border-color: ${(theme) => theme.colors.button.base.darker(10).value()};
 `;
 
 console.log(buttonStyle);

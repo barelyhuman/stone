@@ -1,7 +1,7 @@
-.stone2357148325 {
-  background-color: #f8f9fa;
-  color: #495057;
-  border: 2px solid #f8f9fa;
+.stone2938347561 {
+  background-color: #bbc5ce;
+  color: #1a1d1f;
+  border: 2px solid #bbc5ce;
   border-radius: 6px;
   height: 32px;
   padding: 0 16px;
@@ -11,27 +11,9 @@
   transition: all 0.2s ease;
 }
 
-.stone2689964129 {
+.stone2208626353 {
   outline: #000;
   color: #000;
-  background: #d9dee4;
-}
-
-.stone2357148325 {
-  background-color: #f8f9fa;
-  color: #495057;
-  border: 2px solid #f8f9fa;
-  border-radius: 6px;
-  height: 32px;
-  padding: 0 16px;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  transition: all 0.2s ease;
-}
-
-.stone2689964129 {
-  outline: #000;
-  color: #000;
-  background: #d9dee4;
+  background: #d9dfe4;
+  border-color: #d9dee4;
 }
