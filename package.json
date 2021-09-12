@@ -60,7 +60,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@barelyhuman/tocolor": "^0.0.3",
+    "@barelyhuman/tocolor": "^0.0.5",
     "deep-map-object": "^0.0.5",
     "stylis": "^4.0.10"
   },

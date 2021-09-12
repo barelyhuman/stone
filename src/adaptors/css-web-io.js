@@ -18,17 +18,12 @@ export function CSSWebIOAdaptor(
         options,
       }),
     })
+      // HACK: Digest issues as any issues will be shown on the stone-cli interface
       .then((res) => {
-        if (!res.ok && res.status === 404) {
-          throw new Error("Make sure your stone-cli is running");
-        }
         return true;
       })
       .catch((err) => {
-        if (err instanceof TypeError && err.message === "Failed to fetch") {
-          throw new Error("Make sure your stone-cli is running");
-        }
-        throw err;
+        return true;
       });
 
     return tokens.classHash;
