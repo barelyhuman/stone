@@ -23,11 +23,13 @@
     "style"
   ],
   "scripts": {
+    "prebuild": "rm -rf dist",
     "build": "wrap",
     "watch": "wrap -w",
     "fix": "wrap --fix",
     "test": "uvu -r esm tests",
-    "size": "GITHUB_TOKEN='' bundlesize"
+    "size": "GITHUB_TOKEN='' bundlesize",
+    "prepublishOnly": "npm run build; npm run size;"
   },
   "wrap": {
     "external": [
