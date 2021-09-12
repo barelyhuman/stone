@@ -1,4 +1,4 @@
-import { CSSWebInlineAdaptor, decorate } from "../dist/index";
+import { CSSWebInlineAdaptor, decorate } from "../../dist/index";
 
 const themeConfig = {
   colors: {
@@ -47,19 +47,17 @@ const buttonStyleHover = css`
   background: ${(theme) => theme.colors.button.base.darker(10).value()};
 `;
 
-console.log(buttonStyle);
-
 const button = document.createElement("button");
 
 button.innerText = "Button";
-button.classList.add(buttonStyle);
+Object.assign(button.style, buttonStyle);
 
 button.addEventListener("mouseover", () => {
-  button.classList.add(buttonStyleHover);
+  Object.assign(button.style, buttonStyleHover);
 });
 
 button.addEventListener("mouseout", () => {
-  button.classList.remove(buttonStyleHover);
+  Object.assign(button.style, buttonStyle);
 });
 
 document.body.appendChild(button);

@@ -59,8 +59,8 @@
   },
   "dependencies": {
     "@barelyhuman/tocolor": "^0.0.3",
-    "css": "^3.0.0",
-    "deep-map-object": "^0.0.5"
+    "deep-map-object": "^0.0.5",
+    "stylis": "^4.0.10"
   },
   "devDependencies": {
     "@babel/core": "^7.15.5",

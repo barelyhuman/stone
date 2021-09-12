@@ -1,4 +1,4 @@
-import { CSSWebInjectAdaptor, decorate } from "../dist/index";
+import { CSSWebInjectAdaptor, decorate } from "../../dist/index";
 
 const themeConfig = {
   colors: {
@@ -39,27 +39,17 @@ const buttonStyle = css`
   justify-content: center;
   align-items: center;
   transition: all 0.2s ease;
-`;
 
-const buttonStyleHover = css`
-  outline: #000;
-  color: #000;
-  background: ${(theme) => theme.colors.button.base.darker(10).value()};
+  &:hover {
+    outline: #000;
+    color: #000;
+    background: ${(theme) => theme.colors.button.base.darker(10).value()};
+  }
 `;
-
-console.log(buttonStyle);
 
 const button = document.createElement("button");
 
 button.innerText = "Button";
 button.classList.add(buttonStyle);
-
-button.addEventListener("mouseover", () => {
-  button.classList.add(buttonStyleHover);
-});
-
-button.addEventListener("mouseout", () => {
-  button.classList.remove(buttonStyleHover);
-});
 
 document.body.appendChild(button);

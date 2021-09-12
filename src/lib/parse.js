@@ -1,9 +1,13 @@
-import cssParser from "css";
+import {
+  serialize,
+  stringify as stylisStringify,
+  compile as stylisParser,
+} from "stylis";
 
 export function parse(cssString) {
-  return cssParser.parse(cssString);
+  return stylisParser(cssString);
 }
 
 export function stringify(cssAST) {
-  return cssParser.stringify(cssAST);
+  return serialize(cssAST, stylisStringify);
 }

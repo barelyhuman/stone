@@ -5,9 +5,10 @@ export function CSSWebInlineAdaptor(tokens) {
   let cssStyleObject = {};
 
   // as css only passes per element style, the rules will mostly be of length:1
-  ast.stylesheet.rules[0].declarations.forEach((cssDeclaration) => {
-    const camelCasePropName = camelCase(cssDeclaration.property);
-    cssStyleObject[camelCasePropName] = cssDeclaration.value;
+  console.log({ ast });
+  ast[0].children.forEach((cssDeclaration) => {
+    const camelCasePropName = camelCase(cssDeclaration.props);
+    cssStyleObject[camelCasePropName] = cssDeclaration.children;
   });
 
   return cssStyleObject;
