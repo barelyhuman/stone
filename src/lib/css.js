@@ -22,9 +22,17 @@ export function css(theme, adaptors) {
     const classHash = hash(cssString);
     cssString = `.${classHash} ${cssString}`;
 
+    let ast;
+    try {
+      ast = parse(cssString);
+    } catch (err) {
+      ast = false;
+    }
+
     const data = adaptors.css({
-      ast: parse(cssString),
+      ast: ast,
       classHash,
+      raw: cssString,
       theme: theme,
     });
 

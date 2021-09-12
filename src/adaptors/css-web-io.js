@@ -13,7 +13,7 @@ export function CSSWebIOAdaptor(
     fetch(URL, {
       method: "POST",
       body: JSON.stringify({
-        css: stringify(tokens.ast),
+        css: tokens.raw,
         cwd: __dirname,
         options,
       }),

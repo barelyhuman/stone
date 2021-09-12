@@ -44,28 +44,24 @@ const buttonStyle = css`
   justify-content: center;
   align-items: center;
   transition: all 0.2s ease;
+
+  &:hover {
+    background-color: ${(theme) => primaryButtonColor.lighter(10).value()};
+  }
 `;
 
-const buttonStyleHover = css`
-  outline: #000;
-  color: #000;
-  background: ${primaryButtonColor.lighter(10).value()};
-  border-color: ${(theme) => theme.colors.button.base.darker(10).value()};
+const textStyle = css`
+  color: ${(theme) => theme.colors.text.lighter(20).value()};
 `;
-
-console.log(buttonStyle);
 
 const button = document.createElement("button");
+const p = document.createElement("p");
+
+p.innerText = "Hello";
+p.classList.add(textStyle);
 
 button.innerText = "Button";
 button.classList.add(buttonStyle);
 
-button.addEventListener("mouseover", () => {
-  button.classList.add(buttonStyleHover);
-});
-
-button.addEventListener("mouseout", () => {
-  button.classList.remove(buttonStyleHover);
-});
-
 document.body.appendChild(button);
+document.body.appendChild(p);
