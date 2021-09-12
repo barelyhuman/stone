@@ -4,7 +4,7 @@
 
 ## About
 
-# [WIP] NOTHING WORKS RIGHT NOW
+# [WIP] IT WORKS RIGHT NOW BUT IS STILL IN ALPHA STAGES
 
 Stylebone is fun pet project that I wanted to do.
 It's based off of [AndrewPrifer/theminator](https://github.com/AndrewPrifer/theminator)'s concept of being to use simple theme configurations and using them as styles.
@@ -15,13 +15,17 @@ This allows us to convert needed theme into proper stylesheets when working with
 
 The library isn't limited to the two platforms as you can find other **handlers** (or create your own) to support you preferred platform.
 
+## Documentation
+
+You can read the [docs here](/docs/README.md)
+
 ## Roadmap
 
 - [x] Create style utilities
 - [ ] Create babel plugin for converting the style into a stylesheets , this can involve transpiling it to CSS or transpiling it to RN Stylesheet.Create
-- [ ] Add handling for color manipulation
+- [x] Add handling for color manipulation
 - [ ] Add more needed plugins for the same
-- [ ] Write processor for handling conversion into files
+- [x] Write processor for handling conversion into files
 
 ## Contributing
 

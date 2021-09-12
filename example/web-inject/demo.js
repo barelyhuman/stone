@@ -1,8 +1,4 @@
-import {
-  CSSWebInlineAdaptor,
-  CSSWebInjectAdaptor,
-  decorate,
-} from "../dist/index";
+import { CSSWebInjectAdaptor, decorate } from "../dist/index";
 
 const themeConfig = {
   colors: {
