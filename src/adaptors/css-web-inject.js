@@ -15,5 +15,5 @@ export function CSSWebInjectAdaptor(tokens) {
     styleTag.innerHTML = styleTag.innerHTML + "\n\n" + stringify(tokens.ast);
     return tokens.classHash;
   }
-  return "";
+  return tokens.classHash;
 }
