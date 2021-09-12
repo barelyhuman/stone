@@ -1,6 +1,6 @@
 # stone
 
-`tagline - TBD`
+Framework Agnostic Theme based css-in-js
 
 ## About
 
