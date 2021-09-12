@@ -1,10 +1,7 @@
 import deepMap from "deep-map-object";
 import { CSSWebInlineAdaptor } from "../adaptors/css-web-inline";
-
+import { ColorFactory } from "./color-factory";
 import { css } from "./css";
-import { darker } from "./darker";
-import { lighter } from "./lighter";
-import { normalizeHex } from "./utils";
 
 const defaultAdaptors = {
   css: CSSWebInlineAdaptor,
@@ -33,22 +30,7 @@ export function decorate(themeConfig, adaptors) {
 }
 
 function decorateColor(color) {
-  let ctx = {};
-  ctx.hex = "#" + normalizeHex(color);
-  ctx.value = () => ctx.hex;
-  ctx.toRGB = () => hexToRGB(ctx.hex);
-  ctx.toHSL = () => hexToHSL(ctx.hex);
-  ctx.darker = (percentage = 0) => {
-    const value = darker(percentage, ctx.hex);
-    ctx.hex = `#${value}`;
-    return ctx;
-  };
-  ctx.lighter = (percentage = 0) => {
-    const value = lighter(percentage, ctx.hex);
-    ctx.hex = `#${value}`;
-    return ctx;
-  };
-  return ctx;
+  return new ColorFactory(color);
 }
 
 function decorateDimensions(dimension) {
