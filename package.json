@@ -1,6 +1,6 @@
 {
   "name": "@barelyhuman/stone",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Framework Agnostic Theme based css-in-js",
   "main": "dist/index.js",
   "source": "src/index.js",
