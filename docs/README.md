@@ -2,6 +2,46 @@
 
 Stone is simple framework agnostic , theme based **css-in-js** library. Due to the nature of the library the documentation is a bit dense, do go through the implementations as much as you can or head to the issues to report things that you think needs fixing.
 
+## Theme Creation
+
+The primary part is creating a theme and so the below is how a general theme configuration would look like.
+
+```js
+const themeConfig = {
+  colors: {
+    white: '#ffffff',
+    black: '#000000',
+  },
+  dimensions: {
+    sm: '5px',
+    md: '1em',
+    lg: '2rem',
+    xl: '2.5rem',
+  },
+};
+```
+
+### `decorate`
+
+The `decorate` function is what takes care of adding helpers to your defined colors and units, each color then get's the added functionality of `lighter` and `darker` that you can use to manipulate the color, this is similar to how `sass lighten/darken` work.
+
+```js
+import { CSSWebInlineAdaptor, decorate } from '@barelyhuman/stone';
+
+//  ... themeConfig
+
+// middleware is an optional function
+const { css, dimensions, colors } = decorate(themeConfig, adaptors, middleware);
+```
+
+**`dimensions, colors, css`**
+
+The returned values each have their own significance.
+
+- `dimensions` - These are the same values from `themeConfig` but split into units and values, thus making it easier to use around when working with different units.
+- `colors` - These are the colors from `themeConfig`, with the `lighter` and `darker` helpers
+- `css` - If working with adaptors, the `css` is a template literal function that you can use to define css properties and will return values based on the provided [adaptor](#adaptors).
+
 ## Adaptors
 
 The library tries to be as agnostic as possible while keeping the size small. This is where the adaptors come in place, there's a few that come bundled with the library and this documentation covers them.
@@ -21,25 +61,25 @@ The `Web Inline` adaptor creates inline styles that are returned as js dom style
 The below is taken from the `web-inline` example you can find in this repo
 
 ```js
-import { CSSWebInlineAdaptor, decorate } from "@barelyhuman/stone";
+import { CSSWebInlineAdaptor, decorate } from '@barelyhuman/stone';
 
 const themeConfig = {
   colors: {
-    base: "#ffffff",
-    text: "#000000",
+    base: '#ffffff',
+    text: '#000000',
     button: {
-      base: "#f8f9fa",
-      text: "#495057",
+      base: '#f8f9fa',
+      text: '#495057',
     },
   },
   dimensions: {
     button: {
-      radius: "6px",
+      radius: '6px',
     },
-    sm: "5px",
-    md: "1em",
-    lg: "2rem",
-    xl: "2.5rem",
+    sm: '5px',
+    md: '1em',
+    lg: '2rem',
+    xl: '2.5rem',
   },
 };
 
@@ -72,16 +112,16 @@ const buttonStyleHover = css`
 
 console.log(buttonStyle);
 
-const button = document.createElement("button");
+const button = document.createElement('button');
 
-button.innerText = "Button";
+button.innerText = 'Button';
 button.classList.add(buttonStyle);
 
-button.addEventListener("mouseover", () => {
+button.addEventListener('mouseover', () => {
   button.classList.add(buttonStyleHover);
 });
 
-button.addEventListener("mouseout", () => {
+button.addEventListener('mouseout', () => {
   button.classList.remove(buttonStyleHover);
 });
 
@@ -103,25 +143,17 @@ The `Web Inject` adaptor is similar to other existing CSS-in-JS solutions that r
 The below is taken from the `web-inject` example you can find in this repo
 
 ```js
-import { CSSWebInjectAdaptor, decorate } from "../dist/index";
-
+import { CSSWebInlineAdaptor, decorate } from '@barelyhuman/stone';
 const themeConfig = {
   colors: {
-    base: "#ffffff",
-    text: "#000000",
-    button: {
-      base: "#f8f9fa",
-      text: "#495057",
-    },
+    base: '#ffffff',
+    text: '#000000',
   },
   dimensions: {
-    button: {
-      radius: "6px",
-    },
-    sm: "5px",
-    md: "1em",
-    lg: "2rem",
-    xl: "2.5rem",
+    sm: '5px',
+    md: '1em',
+    lg: '2rem',
+    xl: '2.5rem',
   },
 };
 
@@ -129,43 +161,46 @@ const adaptors = {
   css: CSSWebInjectAdaptor,
 };
 
-const { css } = decorate(themeConfig, adaptors);
+const { css } = decorate(themeConfig, adaptors, (ctx) => {
+  const { colors, dimensions } = ctx;
+  ctx.alias = {
+    button: {
+      base: colors.base.darker(10),
+      text: colors.text.lighter(20),
+      radius: dimensions.sm,
+      hoverBG: colors.base.darker(20),
+    },
+  };
+});
 
 const buttonStyle = css`
-  background-color: ${(theme) => theme.colors.button.base.value()};
-  color: ${(theme) => theme.colors.button.text.value()};
-  border: 2px solid ${(theme) => theme.colors.button.base.value()};
+  background-color: ${(theme) => {
+    console.log({ theme });
+    return theme.alias.button.base.value();
+  }};
+  color: ${(theme) => theme.alias.button.text.value()};
+  border: 2px solid ${(theme) => theme.alias.button.base.value()};
   border-radius: ${(theme) =>
-    theme.dimensions.button.radius.value() +
-    theme.dimensions.button.radius.unit()};
+    theme.alias.button.radius.value() + theme.alias.button.radius.unit()};
   height: 32px;
   padding: 0 16px;
   display: inline-flex;
   justify-content: center;
   align-items: center;
   transition: all 0.2s ease;
+
+  &:hover {
+    outline: #000;
+    color: #000;
+    background: ${(theme) => theme.alias.button.hoverBG.value()};
+    border-color: ${(theme) => theme.alias.button.hoverBG.value()};
+  }
 `;
 
-const buttonStyleHover = css`
-  outline: #000;
-  color: #000;
-  background: ${(theme) => theme.colors.button.base.darker(10).value()};
-`;
+const button = document.createElement('button');
 
-console.log(buttonStyle);
-
-const button = document.createElement("button");
-
-button.innerText = "Button";
+button.innerText = 'Button';
 button.classList.add(buttonStyle);
-
-button.addEventListener("mouseover", () => {
-  button.classList.add(buttonStyleHover);
-});
-
-button.addEventListener("mouseout", () => {
-  button.classList.remove(buttonStyleHover);
-});
 
 document.body.appendChild(button);
 ```
@@ -193,32 +228,32 @@ The problem though is that there's no way **right now** to get the files to get 
 #### Usage
 
 ```js
-import { decorate, CSSWebIOAdaptor } from "../../dist";
+import { decorate, CSSWebIOAdaptor } from '@barelyhuman/stone';
 
 const themeConfig = {
   colors: {
-    base: "#ffffff",
-    text: "#000000",
+    base: '#ffffff',
+    text: '#000000',
     button: {
-      base: "#f8f9fa",
-      text: "#495057",
+      base: '#f8f9fa',
+      text: '#495057',
     },
   },
   dimensions: {
     button: {
-      radius: "6px",
+      radius: '6px',
     },
-    sm: "5px",
-    md: "1em",
-    lg: "2rem",
-    xl: "2.5rem",
+    sm: '5px',
+    md: '1em',
+    lg: '2rem',
+    xl: '2.5rem',
   },
 };
 
 const adaptors = {
   css: CSSWebIOAdaptor({
-    output: __dirname + "/demo.css",
-    URL: "http://localhost:5000/css",
+    output: __dirname + '/demo.css',
+    URL: 'http://localhost:5000/css',
   }),
 };
 
@@ -249,13 +284,13 @@ const textStyle = css`
   color: ${(theme) => theme.colors.text.lighter(20).value()};
 `;
 
-const button = document.createElement("button");
-const p = document.createElement("p");
+const button = document.createElement('button');
+const p = document.createElement('p');
 
-p.innerText = "Hello";
+p.innerText = 'Hello';
 p.classList.add(textStyle);
 
-button.innerText = "Button";
+button.innerText = 'Button';
 button.classList.add(buttonStyle);
 
 document.body.appendChild(button);

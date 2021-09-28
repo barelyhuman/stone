@@ -8,12 +8,14 @@
   "repository": "git@github.com:barelyhuman/stone.git",
   "author": "Reaper <ahoy@barelyhuman.dev>",
   "license": "MIT",
+  "types": "index.d.ts",
   "exports": {
     "import": "./dist/index.esm.js",
     "require": "./dist/index.js"
   },
   "files": [
-    "dist/*"
+    "dist/*",
+    "index.d.ts"
   ],
   "keywords": [
     "css-in-js",

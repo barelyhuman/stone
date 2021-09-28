@@ -1,22 +1,14 @@
-import deepMap from "deep-map-object";
-import { CSSWebInlineAdaptor } from "../adaptors/css-web-inline";
-import { ColorFactory } from "./color-factory";
-import { css } from "./css";
+import deepMap from 'deep-map-object';
+import { CSSWebInlineAdaptor } from '../adaptors/css-web-inline';
+import { ColorFactory } from './color-factory';
+import { css } from './css';
 
 const defaultAdaptors = {
   css: CSSWebInlineAdaptor,
 };
 
-/**
- *
- * @param themeConfig
- * @param themeConfig.colors
- * @param themeConfig.dimensions
- * @returns
- */
-
-export function decorate(themeConfig, adaptors) {
-  let ctx = this || {};
+export function decorate(themeConfig, adaptors, middleware) {
+  let ctx = {};
   adaptors = adaptors || defaultAdaptors;
 
   if (themeConfig.colors) {
@@ -25,7 +17,11 @@ export function decorate(themeConfig, adaptors) {
   if (themeConfig.dimensions) {
     ctx.dimensions = deepMap(decorateDimensions)(themeConfig.dimensions);
   }
+
+  middleware && middleware(ctx);
+
   ctx.css = css(ctx, adaptors);
+
   return ctx;
 }
 
