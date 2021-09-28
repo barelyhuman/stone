@@ -1,6 +1,6 @@
-import { hexToHSL, hslToHex } from "@barelyhuman/tocolor";
+import { hexToHSL, hslToHex } from '@barelyhuman/tocolor';
 
-export function lighter(percentage, color) {
+export function lighter(percentage: number, color: string) {
   if (!percentage) {
     return color;
   }

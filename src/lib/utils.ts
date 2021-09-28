@@ -1,9 +1,9 @@
-export function normalizeHex(hex) {
-  return String(hex).trim().replace(/^#/, "").toLowerCase();
+export function normalizeHex(hex: string) {
+  return String(hex).trim().replace(/^#/, '').toLowerCase();
 }
 
 // not a generic solution, specifically for css props that are generally separated by `-`
-export function camelCase(str) {
+export function camelCase(str: string) {
   const splits = str.split(/-/);
 
   const camel = splits
@@ -14,6 +14,6 @@ export function camelCase(str) {
       }
       return word;
     })
-    .join("");
+    .join('');
   return camel;
 }

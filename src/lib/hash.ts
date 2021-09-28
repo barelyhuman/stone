@@ -9,9 +9,9 @@
  * @param {String} str
  * @returns {String}
  */
-export const hash = (str) => {
+export const hash = (str: string) => {
   let i = 0,
     out = 11;
   while (i < str.length) out = (101 * out + str.charCodeAt(i++)) >>> 0;
-  return "stone" + out;
+  return 'stone' + out;
 };

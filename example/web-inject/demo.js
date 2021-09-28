@@ -2,6 +2,12 @@ import { CSSWebInjectAdaptor, decorate } from '../../dist/index';
 
 const themeConfig = {
   colors: {
+    gray: {
+      light: {
+        shade50: '',
+        100: '',
+      },
+    },
     base: '#ffffff',
     text: '#000000',
   },
@@ -17,7 +23,7 @@ const adaptors = {
   css: CSSWebInjectAdaptor,
 };
 
-const { css } = decorate(themeConfig, adaptors, (ctx) => {
+const { css, colors } = decorate(themeConfig, adaptors, (ctx) => {
   const { colors, dimensions } = ctx;
   ctx.alias = {
     button: {

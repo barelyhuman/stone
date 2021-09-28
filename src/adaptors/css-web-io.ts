@@ -1,17 +1,17 @@
-import { stringify } from "../lib/parse";
+import { InjectorTokens } from '..';
 
 export function CSSWebIOAdaptor(
-  options = { output: "output.css", URL: "http://localhost:5000/css" }
+  options = { output: 'output.css', URL: 'http://localhost:5000/css' }
 ) {
-  return function (tokens) {
-    if (process.env.NODE_ENV === "production") {
+  return function <C, D>(tokens: InjectorTokens<C, D>) {
+    if (process.env.NODE_ENV === 'production') {
       return tokens.classHash;
     }
 
     const URL = options.URL;
 
     fetch(URL, {
-      method: "POST",
+      method: 'POST',
       body: JSON.stringify({
         css: tokens.raw,
         cwd: __dirname,
@@ -19,10 +19,10 @@ export function CSSWebIOAdaptor(
       }),
     })
       // HACK: Digest issues as any issues will be shown on the stone-cli interface
-      .then((res) => {
+      .then((_) => {
         return true;
       })
-      .catch((err) => {
+      .catch((_) => {
         return true;
       });
 

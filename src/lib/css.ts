@@ -1,23 +1,36 @@
-import { hash } from "./hash.js";
-import { parse } from "./parse.js";
+import { Element } from 'stylis';
+import { Decorate } from './decorate.js';
+import { hash } from './hash.js';
+import { parse } from './parse.js';
 
-export function css(theme, adaptors) {
-  return function (val) {
+export interface InjectorTokens<C, D> {
+  ast: Element[];
+  classHash: string;
+  raw: string;
+  theme: Decorate<C, D>;
+}
+
+interface Adaptors {
+  css: any;
+}
+
+export function css<C, D>(theme: Decorate<C, D>, adaptors: Adaptors) {
+  return function (val: string[]) {
     let cssString = `{`;
 
-    val.forEach((lineRow, index) => {
+    val.forEach((lineRow: string, index: number) => {
       cssString += lineRow;
       if (!arguments[index + 1]) {
         return;
       }
-      if (typeof arguments[index + 1] === "function") {
+      if (typeof arguments[index + 1] === 'function') {
         cssString += `${arguments[index + 1](theme)}`;
       } else {
         cssString += `${arguments[index + 1]}`;
       }
     });
 
-    cssString += "}";
+    cssString += '}';
 
     const classHash = hash(cssString);
     cssString = `.${classHash} ${cssString}`;

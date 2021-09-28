@@ -2,12 +2,13 @@ import {
   serialize,
   stringify as stylisStringify,
   compile as stylisParser,
-} from "stylis";
+  Element,
+} from 'stylis';
 
-export function parse(cssString) {
+export function parse(cssString: string) {
   return stylisParser(cssString);
 }
 
-export function stringify(cssAST) {
+export function stringify(cssAST: (string | Element)[]) {
   return serialize(cssAST, stylisStringify);
 }

@@ -1,6 +1,6 @@
-import { hexToHSL, hslToHex } from "@barelyhuman/tocolor";
+import { hexToHSL, hslToHex } from '@barelyhuman/tocolor';
 
-export function darker(percentage, color) {
+export function darker(percentage: number, color: string) {
   if (!percentage) {
     return color;
   }
