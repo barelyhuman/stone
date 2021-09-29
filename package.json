@@ -20,11 +20,12 @@
   "scripts": {
     "prebuild": "shx rm -rf dist",
     "build": "tsc",
-    "watch": "tsc --watch",
-    "fix": "wrap --fix",
+    "watch": "tsc -w",
+    "fix": "standard --fix",
     "test": "uvu -r esm tests",
     "size": "GITHUB_TOKEN='' bundlesize",
-    "prepublishOnly": "npm run build;npm run size;"
+    "prepublishOnly": "npm run build;npm run size;",
+    "prepare": "husky install"
   },
   "bundlesize": [
     {
@@ -46,11 +47,20 @@
     "stylis": "^4.0.10"
   },
   "devDependencies": {
+    "@types/node": "^16.10.2",
     "@types/stylis": "^4.0.1",
     "bundlesize": "^0.18.1",
     "esm": "^3.2.25",
+    "husky": "^7.0.2",
+    "lint-staged": "^11.1.2",
     "shx": "^0.3.3",
+    "standard": "^16.0.3",
     "typescript": "^4.4.3",
     "uvu": "^0.5.1"
+  },
+  "lint-staged": {
+    "*.{js}": [
+      "npm run fix"
+    ]
   }
 }

@@ -14,5 +14,6 @@
     "noImplicitOverride": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true
-  }
+  },
+  "exclude": ["example/*", "node_modules/*", "dist"]
 }

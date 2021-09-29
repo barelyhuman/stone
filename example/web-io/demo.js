@@ -1,35 +1,36 @@
-import { decorate, CSSWebIOAdaptor } from "../../dist";
+import { decorate, CSSWebIOAdaptor } from '../../dist'
+import path from 'path'
 
 const themeConfig = {
   colors: {
-    base: "#ffffff",
-    text: "#000000",
+    base: '#ffffff',
+    text: '#000000',
     button: {
-      base: "#f8f9fa",
-      text: "#495057",
-    },
+      base: '#f8f9fa',
+      text: '#495057'
+    }
   },
   dimensions: {
     button: {
-      radius: "6px",
+      radius: '6px'
     },
-    sm: "5px",
-    md: "1em",
-    lg: "2rem",
-    xl: "2.5rem",
-  },
-};
+    sm: '5px',
+    md: '1em',
+    lg: '2rem',
+    xl: '2.5rem'
+  }
+}
 
 const adaptors = {
   css: CSSWebIOAdaptor({
-    output: __dirname + "/demo.css",
-    URL: "http://localhost:5000/css",
-  }),
-};
+    output: path.join(__dirname, '/demo.css'),
+    URL: 'http://localhost:5000/css'
+  })
+}
 
-const { colors, css } = decorate(themeConfig, adaptors);
+const { colors, css } = decorate(themeConfig, adaptors)
 
-const primaryButtonColor = colors.button.base.darker(20);
+const primaryButtonColor = colors.button.base.darker(20)
 
 const buttonStyle = css`
   background-color: ${primaryButtonColor.value()};
@@ -48,20 +49,20 @@ const buttonStyle = css`
   &:hover {
     background-color: ${(theme) => primaryButtonColor.lighter(10).value()};
   }
-`;
+`
 
 const textStyle = css`
   color: ${(theme) => theme.colors.text.lighter(20).value()};
-`;
+`
 
-const button = document.createElement("button");
-const p = document.createElement("p");
+const button = document.createElement('button')
+const p = document.createElement('p')
 
-p.innerText = "Hello";
-p.classList.add(textStyle);
+p.innerText = 'Hello'
+p.classList.add(textStyle)
 
-button.innerText = "Button";
-button.classList.add(buttonStyle);
+button.innerText = 'Button'
+button.classList.add(buttonStyle)
 
-document.body.appendChild(button);
-document.body.appendChild(p);
+document.body.appendChild(button)
+document.body.appendChild(p)

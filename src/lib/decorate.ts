@@ -15,8 +15,8 @@ type DecoratedColor<Colors> = {
 };
 
 interface IDecoratedDimension {
-  value: () => string | number | null;
-  unit: () => string | number | null;
+  value: () => number | null;
+  unit: () => string | null;
 }
 
 type DecoratedDimension<Dimensions> = {
@@ -36,15 +36,15 @@ const defaultAdaptors = {
   css: CSSWebInlineAdaptor,
 };
 
-export function decorate<C extends {}, D extends {}>(
+export function decorate<C extends {}, D extends {},U extends Decorate<C,D>>(
   themeConfig: ThemeConfig<C, D>,
   adaptors: any,
-  middleware?: (ctx: Decorate<C, D>) => void
-): Decorate<C, D> {
-  let ctx: Decorate<C, D> = {
-    colors: undefined,
-    dimensions: undefined,
-  };
+  middleware?: (ctx: Decorate<C, D>) => U
+): U {
+  const ctx = {
+    colors: {},
+    dimensions: {},
+  } as Decorate<C,D>;
 
   adaptors = adaptors || defaultAdaptors;
 
@@ -55,11 +55,11 @@ export function decorate<C extends {}, D extends {}>(
     ctx.dimensions = decorateDimensions(themeConfig.dimensions);
   }
 
-  middleware && middleware(ctx);
+  const ctx2 = (middleware && middleware(ctx) )|| ctx;
 
-  ctx.css = css(ctx, adaptors);
+  ctx2.css = css(ctx, adaptors);
 
-  return ctx;
+  return ctx2 as U;
 }
 
 function decorateColor<C extends object>(colors: C) {

@@ -14,7 +14,9 @@ interface Adaptors {
   css: any;
 }
 
-export function css<C, D>(theme: Decorate<C, D>, adaptors: Adaptors) {
+interface Theme<C, D> extends Decorate<C, D> {}
+
+export function css<C, D>(theme: Theme<C, D>, adaptors: Adaptors) {
   return function (val: string[]) {
     let cssString = `{`;
 
