@@ -4,7 +4,7 @@ Stone is simple framework agnostic , theme based **css-in-js** library. Due to t
 
 ## Theme Creation
 
-The primary part is creating a theme and so the below is how a general theme configuration would look like.
+The primary part is creating a theme and so the below is how a general theme configuration would look like. This is all **type safe** so you can actually expect the editor to autocomplete as long as your ts-server is running. Example with TS code is available in [demo.ts](../example/web-inject/demo.ts) or in the usage example of [CSSWebInjectAdaptor](#csswebinjectadaptor)
 
 ```js
 const themeConfig = {
@@ -33,6 +33,29 @@ import { CSSWebInlineAdaptor, decorate } from '@barelyhuman/stone';
 // middleware is an optional function
 const { css, dimensions, colors } = decorate(themeConfig, adaptors, middleware);
 ```
+
+** `middleware` ** 
+Middleware is an optional function that you can use to manipulate the returned values of `{ css, dimensions, colors }` and return more things like, a very simplistic example would be to also return aliases for the same set of colors. 
+
+You can define aliases on the original config but maybe you want to generate these aliases using the existing colors.
+
+eg:
+```js
+const {css,colors,dimensions,alias} = decorate({
+  colors:{
+    red:"#fff"
+  }
+},undefined,(ctx)=>{
+  return {
+    ...ctx,
+    alias:{
+      brand: ctx.colors.red.lighter(10)
+    }
+  }
+})
+```
+
+and obviously, you are not limited to this, you do a lot more than just this, you can have a base color and generate all shades with the provided helpers.
 
 **`dimensions, colors, css`**
 
@@ -144,8 +167,14 @@ The below is taken from the `web-inject` example you can find in this repo
 
 ```js
 import { CSSWebInlineAdaptor, decorate } from '@barelyhuman/stone';
-const themeConfig = {
+const _themeConfig = {
   colors: {
+    gray: {
+      light: {
+        shade50: '',
+        100: '',
+      },
+    },
     base: '#ffffff',
     text: '#000000',
   },
@@ -161,26 +190,33 @@ const adaptors = {
   css: CSSWebInjectAdaptor,
 };
 
-const { css } = decorate(themeConfig, adaptors, (ctx) => {
+const themeConfig = decorate(_themeConfig, adaptors, (ctx) => {
   const { colors, dimensions } = ctx;
-  ctx.alias = {
-    button: {
-      base: colors.base.darker(10),
-      text: colors.text.lighter(20),
-      radius: dimensions.sm,
-      hoverBG: colors.base.darker(20),
-    },
+  let _clone = {
+    ...ctx,
+    alias : {
+      button: {
+        base: colors.base.darker(10),
+        text: colors.text.lighter(20),
+        radius: dimensions.sm,
+        hoverBG: colors.base.darker(20),
+      },
+    }  
   };
+  return _clone;
 });
 
+type StoneThemeConfig = typeof themeConfig;
+
+const { css } = themeConfig;
+
 const buttonStyle = css`
-  background-color: ${(theme) => {
-    console.log({ theme });
-    return theme.alias.button.base.value();
-  }};
-  color: ${(theme) => theme.alias.button.text.value()};
-  border: 2px solid ${(theme) => theme.alias.button.base.value()};
-  border-radius: ${(theme) =>
+  background-color: ${(theme: StoneThemeConfig) =>
+    theme.alias.button.base.value()};
+  color: ${(theme: StoneThemeConfig) => theme.alias.button.text.value()};
+  border: 2px solid
+    ${(theme: StoneThemeConfig) => theme.alias.button.base.value()};
+  border-radius: ${(theme: StoneThemeConfig) =>
     theme.alias.button.radius.value() + theme.alias.button.radius.unit()};
   height: 32px;
   padding: 0 16px;
@@ -192,8 +228,10 @@ const buttonStyle = css`
   &:hover {
     outline: #000;
     color: #000;
-    background: ${(theme) => theme.alias.button.hoverBG.value()};
-    border-color: ${(theme) => theme.alias.button.hoverBG.value()};
+    background: ${(theme: StoneThemeConfig) =>
+      theme.alias.button.hoverBG.value()};
+    border-color: ${(theme: StoneThemeConfig) =>
+      theme.alias.button.hoverBG.value()};
   }
 `;
 
