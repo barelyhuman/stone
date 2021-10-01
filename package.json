@@ -1,6 +1,6 @@
 {
   "name": "@barelyhuman/stone",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Framework Agnostic Theme based css-in-js",
   "main": "dist/index.js",
   "repository": "git@github.com:barelyhuman/stone.git",
