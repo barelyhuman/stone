@@ -5,9 +5,11 @@
   "license": "MIT",
   "scripts": {
     "dev": "parcel index.html",
+    "dev:stone": "stone-cli",
     "build": "parcel build index.html"
   },
   "devDependencies": {
+    "@barelyhuman/stone-cli": "^0.0.3",
     "parcel-bundler": "^1.12.5"
   }
 }

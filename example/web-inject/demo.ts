@@ -5,17 +5,18 @@ const _themeConfig = {
     gray: {
       light: {
         shade50: '',
-        100: '',
       },
     },
     base: '#ffffff',
     text: '#000000',
   },
   dimensions: {
+  
     sm: '5px',
     md: '1em',
     lg: '2rem',
     xl: '2.5rem',
+  
   },
 };
 
@@ -23,7 +24,7 @@ const adaptors = {
   css: CSSWebInjectAdaptor,
 };
 
-const themeConfig = decorate(_themeConfig, adaptors, (ctx) => {
+const themeConfig = decorate(_themeConfig, adaptors,(ctx) => {
   const { colors, dimensions } = ctx;
   let _clone = {
     ...ctx,
@@ -39,13 +40,16 @@ const themeConfig = decorate(_themeConfig, adaptors, (ctx) => {
   return _clone;
 });
 
+
 type StoneThemeConfig = typeof themeConfig;
 
-const { css } = themeConfig;
+const { css,alias } = themeConfig;
 
 const buttonStyle = css`
   background-color: ${(theme: StoneThemeConfig) =>
-    theme.alias.button.base.value()};
+    {
+      return theme.alias.button.base.value()
+    }};
   color: ${(theme: StoneThemeConfig) => theme.alias.button.text.value()};
   border: 2px solid
     ${(theme: StoneThemeConfig) => theme.alias.button.base.value()};

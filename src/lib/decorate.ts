@@ -57,7 +57,7 @@ export function decorate<C extends {}, D extends {},U extends Decorate<C,D>>(
 
   const ctx2 = (middleware && middleware(ctx) )|| ctx;
 
-  ctx2.css = css(ctx, adaptors);
+  ctx2.css = css(ctx2, adaptors);
 
   return ctx2 as U;
 }

@@ -47,6 +47,7 @@
     "stylis": "^4.0.10"
   },
   "devDependencies": {
+    "@barelyhuman/stone-cli": "^0.0.3",
     "@types/node": "^16.10.2",
     "@types/stylis": "^4.0.1",
     "bundlesize": "^0.18.1",
