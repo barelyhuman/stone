@@ -60,7 +60,7 @@
     "uvu": "^0.5.1"
   },
   "lint-staged": {
-    "*.{js}": [
+    "*.js": [
       "npm run fix"
     ]
   }

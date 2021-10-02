@@ -17,7 +17,7 @@ The library isn't limited to the two platforms as you can find other **handlers*
 
 ## Documentation
 
-You can read the [docs here](/docs/README.md)
+You can read the [docs here](https://stone.reaper.im/)
 
 ## Roadmap
 
