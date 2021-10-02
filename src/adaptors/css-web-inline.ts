@@ -1,8 +1,13 @@
-import { InjectorTokens } from '..';
-import { camelCase } from '../lib/utils';
-import { Element } from 'stylis';
+import { InjectorTokens } from "..";
+import { camelCase } from "../lib/utils";
+import { Element } from "stylis";
 
-export function CSSWebInlineAdaptor<C, D>(tokens: InjectorTokens<C, D>) {
+/**
+ * @name CSSWebInlineAdaptor
+ * @description pluggable adaptor that takes in css
+ * parsed tokens and returns a web dom stylesheet
+ */
+export function CSSWebInlineAdaptor(tokens: InjectorTokens) {
   const ast = tokens.ast;
   let cssStyleObject: any = {};
 

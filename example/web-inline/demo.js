@@ -1,17 +1,27 @@
-import { CSSWebInlineAdaptor, decorate } from '../../dist/index'
+import {
+  createColors,
+  createCSS,
+  createDimensions,
+  CSSWebInlineAdaptor
+} from '../../dist/index'
 
-const themeConfig = {
+const _themeConfig = {
   colors: {
-    base: '#ffffff',
-    text: '#000000',
-    button: {
-      base: '#f8f9fa',
-      text: '#495057'
-    }
+    black: '#000000',
+    white: '#ffffff',
+    blue: '#1971c2',
+    green: '#099268'
   },
   dimensions: {
-    button: {
-      radius: '6px'
+    borders: {
+      sm: '4px',
+      md: '8px',
+      lg: '16px'
+    },
+    font: {
+      ls: {
+        size: '1px'
+      }
     },
     sm: '5px',
     md: '1em',
@@ -20,44 +30,61 @@ const themeConfig = {
   }
 }
 
+// Create usable theme elements
+const colors = createColors(_themeConfig.colors)
+const dimensions = createDimensions(_themeConfig.dimensions)
+const alias = {
+  brand: colors.blue.lighter(20),
+  text: colors.white.lighter(10)
+}
+
+const themeConfig = {
+  colors,
+  dimensions,
+  alias
+}
+
 const adaptors = {
   css: CSSWebInlineAdaptor
 }
 
-const { css } = decorate(themeConfig, adaptors)
+const css = createCSS(themeConfig, adaptors)
 
 const buttonStyle = css`
-  background-color: ${(theme) => theme.colors.button.base.value()};
-  color: ${(theme) => theme.colors.button.text.value()};
-  border: 2px solid ${(theme) => theme.colors.button.base.value()};
-  border-radius: ${(theme) =>
-    theme.dimensions.button.radius.value() +
-    theme.dimensions.button.radius.unit()};
-  height: 32px;
-  padding: 0 16px;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  transition: all 0.2s ease;
+  padding: 0 ${(theme) => theme.dimensions.md.raw};
+
+  font-size: 14px;
+  line-height: 27px;
+
+  background-color: ${(theme) => theme.alias.brand.value()};
+  color: ${(theme) => theme.alias.text.value()};
+
+  border: 1px solid ${(theme) => theme.alias.brand.value()};
+  border-radius: ${(theme) => theme.dimensions.borders.sm.value()}px;
+
+  &:hover {
+    border-color: ${(theme) => theme.alias.brand.darker(10).value()};
+    color: ${(theme) => theme.alias.text.value()};
+    box-shadow: rgba(0, 0, 0, 0.1) 0 1px 4px;
+  }
 `
 
-const buttonStyleHover = css`
-  outline: #000;
-  color: #000;
-  background: ${(theme) => theme.colors.button.base.darker(10).value()};
+const margins = css`
+  margin: ${(theme) => theme.dimensions.lg.raw}}
+`
+
+const buttonPill = css`
+  border-radius: ${(theme) => theme.dimensions.borders.lg.value()}px;
 `
 
 const button = document.createElement('button')
+const button2 = document.createElement('button')
 
 button.innerText = 'Button'
+button2.innerText = 'Button'
+
 Object.assign(button.style, buttonStyle)
-
-button.addEventListener('mouseover', () => {
-  Object.assign(button.style, buttonStyleHover)
-})
-
-button.addEventListener('mouseout', () => {
-  Object.assign(button.style, buttonStyle)
-})
+Object.assign(button2.style, buttonStyle, buttonPill, margins)
 
 document.body.appendChild(button)
+document.body.appendChild(button2)

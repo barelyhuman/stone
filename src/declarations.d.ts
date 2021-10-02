@@ -1,4 +1,4 @@
-declare module 'deep-map-object' {
+declare module "deep-map-object" {
   export type MappedValues<T, MappedValue> = {
     [K in keyof T]: T[K] extends object
       ? MappedValues<T[K], MappedValue>

@@ -1,0 +1,33 @@
+{{define "metaHTML"}}
+<!-- Primary Meta Tags -->
+<title>{{.Site.Name}}</title>
+<meta name="title" content="{{.Site.Name}}" />
+<meta name="description" content="{{.Site.Description}}" />
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content="{{.Site.Link}}" />
+<meta property="og:title" content="{{.Site.Name}}" />
+<meta property="og:description" content="{{.Site.Description}}" />
+<meta property="og:image" content="{{.Site.Link}}/assets/logo.png" />
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content="{{.Site.Link}}/" />
+<meta property="twitter:title" content="{{.Site.Name}} " />
+<meta
+  property="twitter:description"
+  content="Minimalist | Developer | Designer. 
+I develop open source software and tools to ease development and life overall. Dreams of making a living off of open source software."
+/>
+<meta property="twitter:image" content="{{.Site.Link}}/assets/logo.png" />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/nord.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
+<!-- and it's easy to individually load additional languages -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/languages/css.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/languages/javascript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/languages/typescript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/languages/go.min.js"></script>
+
+{{end}}

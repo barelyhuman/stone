@@ -1,0 +1,18 @@
+{{define "headerHTML"}}
+<header class="container-boundaries">
+  <h1 class="m-0 p-0">
+    Stone
+  </h1>
+  <p class="m-0 p-0 small">
+    CSS-in-JSS solution
+  </p>
+  <div class="mt-2">
+    <div>
+      <nav>
+        <a href="/index.html" {{if eq .Meta.Slug "//index.html" }} class="nav-link active" {{else}} class="nav-link" {{end}}>About</a>
+        <a href="/documentation/index.html" {{if eq .Meta.Slug "documentation/index.html" }} class="nav-link active" {{else}} class="nav-link" {{end}}>Docs</a>
+      </nav>
+    </div>
+  </div>
+</header>
+{{end}}

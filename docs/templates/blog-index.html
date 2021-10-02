@@ -1,0 +1,30 @@
+{{define "blogIndexHTML"}}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="/assets/favicon.png" />
+    {{template "metaHTML" .}}
+    <title>{{.Site.Name}}</title>
+    <link rel="stylesheet" href="/styles/main.css" />
+  </head>
+  <body>
+    {{template "headerHTML" .}}
+    <main class="w-100">
+      <ul class="post-list">
+        {{range .Files}}
+        <li class="post-list-item">
+          <a href="/{{.Slug}}"> {{.Title}} </a>
+          <p>
+            <small> {{.Date.Format "02/01/2006"}} </small>
+          </p>
+        </li>
+        {{end}}
+      </ul>
+    </main>
+    {{template "footerHTML" .}}
+  </body>
+</html>
+{{end}}

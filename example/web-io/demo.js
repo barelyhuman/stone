@@ -1,4 +1,9 @@
-import { decorate, CSSWebIOAdaptor } from '../../dist'
+import {
+  createColors,
+  createCSS,
+  createDimensions,
+  CSSWebIOAdaptor
+} from '../../dist/index'
 import path from 'path'
 
 const themeConfig = {
@@ -21,6 +26,9 @@ const themeConfig = {
   }
 }
 
+const colors = createColors(themeConfig.colors)
+const dimensions = createDimensions(themeConfig.dimensions)
+
 const adaptors = {
   css: CSSWebIOAdaptor({
     output: path.join(__dirname, '/demo.css'),
@@ -28,7 +36,13 @@ const adaptors = {
   })
 }
 
-const { colors, css } = decorate(themeConfig, adaptors)
+const css = createCSS(
+  {
+    colors,
+    dimensions
+  },
+  adaptors
+)
 
 const primaryButtonColor = colors.button.base.darker(20)
 

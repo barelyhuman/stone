@@ -1,38 +1,34 @@
-import { Element } from 'stylis';
-import { Decorate } from './decorate.js';
-import { hash } from './hash.js';
-import { parse } from './parse.js';
+import { Element } from "stylis";
+import { hash } from "./hash.js";
+import { parse } from "./parse.js";
 
-export interface InjectorTokens<C, D> {
+export interface InjectorTokens {
   ast: Element[];
   classHash: string;
   raw: string;
-  theme: Decorate<C, D>;
 }
 
-interface Adaptors {
+export interface Adaptors {
   css: any;
 }
 
-interface Theme<C, D> extends Decorate<C, D> {}
-
-export function css<C, D>(theme: Theme<C, D>, adaptors: Adaptors) {
-  return function (val: string[]) {
+export function css<T extends {}>(theme: T, adaptors: Adaptors) {
+  return function (strings: TemplateStringsArray | string[], ...params: any) {
     let cssString = `{`;
 
-    val.forEach((lineRow: string, index: number) => {
+    strings.forEach((lineRow: string, index: number) => {
       cssString += lineRow;
-      if (!arguments[index + 1]) {
+      if (!params[index]) {
         return;
       }
-      if (typeof arguments[index + 1] === 'function') {
-        cssString += `${arguments[index + 1](theme)}`;
+      if (typeof params[index] === "function") {
+        cssString += `${params[index](theme)}`;
       } else {
-        cssString += `${arguments[index + 1]}`;
+        cssString += `${params[index]}`;
       }
     });
 
-    cssString += '}';
+    cssString += "}";
 
     const classHash = hash(cssString);
     cssString = `.${classHash} ${cssString}`;
