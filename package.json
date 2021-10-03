@@ -1,7 +1,7 @@
 {
   "name": "@barelyhuman/stone",
   "version": "1.0.0",
-  "description": "Framework Agnostic Theme based css-in-js",
+  "description": "A hackable CSS-in-JSS solution",
   "main": "dist/index.js",
   "repository": "git@github.com:barelyhuman/stone.git",
   "author": "Reaper <ahoy@barelyhuman.dev>",

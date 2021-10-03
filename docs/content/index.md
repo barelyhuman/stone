@@ -4,7 +4,7 @@ It's based off of [AndrewPrifer/theminator](https://github.com/AndrewPrifer/them
 
 This though isn't very performant when working with platforms so this library aims to move it ahead by acting as a pre-processor that bundles styles for the same.
 
-This allows us to convert needed theme into proper stylesheets when working with **web** and `StyleSheet.create` insertions when working with something like **React Native**. These are accomplished by babel plugins that create the needed files at runtime and import them as modules for web and create `Stylesheet.create` when working with React Native.
+This allows us to convert needed theme into proper stylesheets when working with **web** and `StyleSheet.create` insertions when working with something like **React Native**. These are accomplished by plugins or as I call them adaptors that create the needed files at runtime and import them as modules for web and create `Stylesheet.create` when working with React Native, or do anything else with the parsed css token, go **bonkers** with it and create your own adaptor as needed.
 
 The library isn't limited to the two platforms as you can find other **handlers** (or create your own) to support you preferred platform.
 
