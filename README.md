@@ -2,9 +2,15 @@
 
 A hackable CSS-in-JSS solution
 
+![Github](https://img.shields.io/github/license/barelyhuman/stone?logoColor=000&colorA=000000&colorB=000000)
+[![Javascript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg?colorA=000000&colorB=000000)](https://standardjs.com)
+[![Build Size](https://img.shields.io/bundlephobia/minzip/@barelyhuman/stone?colorA=000000&colorB=000000)](https://bundlephobia.com/result?p=@barelyhuman/stone)
+[![Version](https://img.shields.io/npm/v/@barelyhuman/stone?style=flat&colorA=000000&colorB=000000)](https://www.npmjs.com/package/@barelyhuman/stone)
+[![Downloads](https://img.shields.io/npm/dt/@barelyhuman/stone.svg?style=flat&colorA=000000&colorB=000000)](https://www.npmjs.com/package/@barelyhuman/stone)
+
 ## About
 
-# [WIP] IT WORKS RIGHT NOW BUT IS STILL IN ALPHA STAGES
+> [WIP] IT WORKS RIGHT NOW BUT IS STILL IN ALPHA STAGES (THE API MIGHT CHANGE)
 
 Stylebone is fun pet project that I wanted to do.
 It's based off of [AndrewPrifer/theminator](https://github.com/AndrewPrifer/theminator)'s concept of being to use simple theme configurations and using them as styles.
