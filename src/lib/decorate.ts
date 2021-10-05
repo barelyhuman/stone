@@ -1,12 +1,7 @@
 import deepMapObject from "deep-map-object";
-import { CSSWebInlineAdaptor } from "../adaptors/css-web-inline";
 import { ColorFactory } from "./color-factory";
 import { css, Adaptors } from "./css";
 import { DimensionFactory } from "./dimension-factory";
-
-const defaultAdaptors = {
-  css: CSSWebInlineAdaptor,
-};
 
 /**
  * @name createColors
@@ -36,7 +31,6 @@ export function createDimensions<D extends {}>(dimensions: D) {
  * to use your theme anywhere, also accepts an Adaptor to modify the functionality of the css function
  * so you can change adaptors to target various platforms
  */
-export function createCSS<T extends {}>(theme: T, adaptors: Adaptors) {
-  const _adaptors = adaptors || defaultAdaptors;
-  return css(theme, _adaptors);
+export function createCSS<T extends {}>(theme: T, adaptors?: Adaptors) {
+  return css(theme, adaptors);
 }

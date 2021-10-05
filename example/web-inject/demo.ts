@@ -47,7 +47,7 @@ const themeConfig = {
   alias,
 };
 
-const css = createCSS({ colors, dimensions, alias }, adaptors);
+const css = createCSS({ colors, dimensions, alias });
 
 type StoneThemeConfig = typeof themeConfig;
 
