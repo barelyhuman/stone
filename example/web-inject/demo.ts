@@ -7,7 +7,7 @@ import {
 
 const _themeConfig = {
   colors: {
-    black: "#000000",
+    black: "#000",
     white: "#ffffff",
     blue: "#1971c2",
     green: "#099268",
@@ -37,7 +37,7 @@ const adaptors = {
 const colors = createColors(_themeConfig.colors);
 const dimensions = createDimensions(_themeConfig.dimensions);
 const alias = {
-  brand: colors.blue.lighter(20),
+  brand: colors.black.lighter(20),
   text: colors.white.lighter(10),
 };
 
@@ -47,7 +47,7 @@ const themeConfig = {
   alias,
 };
 
-const css = createCSS({ colors, dimensions, alias });
+const css = createCSS({ colors, dimensions, alias }, adaptors);
 
 type StoneThemeConfig = typeof themeConfig;
 
