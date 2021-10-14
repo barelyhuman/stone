@@ -1,3 +1,7 @@
 dist
 node_modules
 .cache
+
+
+# CSS Files built by the test 
+css-stone-0.stone.css

@@ -8,3 +8,7 @@ declare module "deep-map-object" {
     transform: (value: Value) => MappedValue
   ): <T extends object>(input: T) => MappedValues<T, MappedValue>;
 }
+
+declare module "lodash.get" {
+  export default function (source: {}, path: string, defaultValue: any): any;
+}

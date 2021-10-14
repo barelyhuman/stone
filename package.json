@@ -2,14 +2,15 @@
   "name": "@barelyhuman/stone",
   "version": "1.0.0",
   "description": "A hackable CSS-in-JSS solution",
-  "main": "dist/index.js",
+  "main": "index.js",
   "repository": "git@github.com:barelyhuman/stone.git",
   "author": "Reaper <ahoy@barelyhuman.dev>",
   "license": "MIT",
-  "types": "dist/*.d.ts",
-  "files": [
-    "dist/*"
-  ],
+  "types": "*.d.ts",
+  "exports": {
+    ".": "./index.js",
+    "./babel": "./babel/index.js"
+  },
   "keywords": [
     "css-in-js",
     "stone",
@@ -21,11 +22,13 @@
     "prebuild": "shx rm -rf dist",
     "build": "tsc",
     "watch": "tsc -w",
+    "postbuild": "npm run copy",
     "fix": "standard --fix",
     "test": "uvu -r esm tests",
     "size": "GITHUB_TOKEN='' bundlesize",
     "prepublishOnly": "npm run build;npm run size;",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "copy": "shx cp package.json dist/package.json; json -I -f dist/package.json -e \"this.private=false; this.devDependencies=undefined; this.optionalDependencies=undefined; this.scripts=undefined; this.prettier=undefined; this.jest=undefined; this.bundlesize=undefined;this['lint-staged']=undefined;\""
   },
   "bundlesize": [
     {
@@ -42,17 +45,22 @@
     "access": "public"
   },
   "dependencies": {
+    "@babel/traverse": "^7.15.4",
+    "@babel/types": "^7.15.6",
     "@barelyhuman/tocolor": "^0.0.5",
     "deep-map-object": "^0.0.5",
     "stylis": "^4.0.10"
   },
   "devDependencies": {
+    "@babel/core": "^7.15.8",
     "@barelyhuman/stone-cli": "^0.0.3",
+    "@types/babel__traverse": "^7.14.2",
     "@types/node": "^16.10.2",
     "@types/stylis": "^4.0.1",
     "bundlesize": "^0.18.1",
     "esm": "^3.2.25",
     "husky": "^7.0.2",
+    "json": "^11.0.0",
     "lint-staged": "^11.1.2",
     "shx": "^0.3.3",
     "standard": "^16.0.3",

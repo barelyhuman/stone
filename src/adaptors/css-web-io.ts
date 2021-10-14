@@ -8,6 +8,7 @@ import { InjectorTokens } from "..";
 export function CSSWebIOAdaptor(
   options = { output: "output.css", URL: "http://localhost:5000/css" }
 ) {
+  console.warn("CSSWebIOAdaptor is deprecated, use the babel plugin instead");
   return function (tokens: InjectorTokens) {
     if (process.env.NODE_ENV === "production") {
       return tokens.classHash;
