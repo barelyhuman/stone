@@ -7,3 +7,4 @@ Stone is simple framework agnostic , theme based **css-in-js** library. Due to t
 ### Index
 
 - [API](/documentation/api.html)
+- [Babel](/documentation/babel.html)
