@@ -29,7 +29,6 @@ module.exports = function ({ types: bTypes }: any) {
             process.cwd(),
             `css-stone-${index}.stone.css`
           );
-          console.log(styleMap.outputPath);
         }
 
         fs.writeFileSync(styleMap.outputPath, css);
@@ -38,6 +37,8 @@ module.exports = function ({ types: bTypes }: any) {
           fileData.filename,
           styleMap.outputPath
         );
+
+        console.log({ relativePath });
 
         const importDeclaration = createCSSImport(relativePath);
         rootProgramNode.unshiftContainer("body", importDeclaration);
@@ -65,8 +66,9 @@ module.exports = function ({ types: bTypes }: any) {
             if (!fileData.root) {
               fileData.root = state.file.opts.root;
             }
-            if (!fileData.root) {
-              fileData.root = state.file.opts.filename;
+
+            if (!fileData.filename) {
+              fileData.filename = state.file.opts.filename;
             }
           }
         },
