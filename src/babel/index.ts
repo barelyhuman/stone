@@ -18,33 +18,36 @@ module.exports = function ({ types: bTypes }: any) {
     filename: "",
   };
 
+  let isCSSMod = false;
+
   return {
     post() {
+      if (!isCSSMod) {
+        return;
+      }
+
+      let curatedStyles = "";
+      let outputPath = "";
+
       [...allStyles.entries()].forEach((entry, index) => {
         const [_, styleMap] = entry;
-        const css = `${styleMap.css}\n\n`;
+        curatedStyles += `${styleMap.css}\n\n`;
 
-        if (!styleMap.outputPath) {
-          styleMap.outputPath = join(
-            process.cwd(),
-            `css-stone-${index}.stone.css`
-          );
+        if (outputPath.length <= 0) {
+          outputPath =
+            styleMap.outputPath ||
+            join(process.cwd(), `css-stone-${index}.stone.css`);
         }
-
-        fs.writeFileSync(styleMap.outputPath, css);
-
-        const relativePath = getRelativePath(
-          fileData.filename,
-          styleMap.outputPath
-        );
-
-        console.log({ relativePath });
-
-        const importDeclaration = createCSSImport(relativePath);
-        rootProgramNode.unshiftContainer("body", importDeclaration);
       });
 
+      const relativePath = getRelativePath(fileData.filename, outputPath);
+      const importDeclaration = createCSSImport(relativePath);
+      rootProgramNode.unshiftContainer("body", importDeclaration);
+
+      fs.writeFileSync(outputPath, curatedStyles);
+
       allStyles.clear();
+      isCSSMod = false;
     },
     visitor: {
       Program: {
@@ -77,6 +80,16 @@ module.exports = function ({ types: bTypes }: any) {
         path: NodePath<t.TaggedTemplateExpression>,
         state: any
       ) {
+        // Add handling to css being the variable doing the calling
+
+        if (
+          path.node.tag.type === "Identifier" &&
+          path.node.tag.name === "css"
+        ) {
+          isCSSMod = true;
+        } else {
+          isCSSMod = false;
+        }
         let cssText = "";
         const quasi = path.get("quasi");
         const expressions = quasi.get("expressions");
