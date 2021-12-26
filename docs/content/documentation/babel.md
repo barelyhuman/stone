@@ -47,8 +47,7 @@ export { css, theme };
 
 The point is to make sure you export the `theme` object so the babel plugin can require and use it.
 
-After this, all you have to do is change your `babel` configuration to point to the theme config while using the
-provided plugin.
+After this, all you have to do is change your `babel` configuration to point to the theme config while using the provided plugin.
 
 ```json
 {

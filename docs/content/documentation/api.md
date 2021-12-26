@@ -96,8 +96,9 @@ const buttonStyle = css`
     background-color: ${(theme) => theme.alias.brand.value()}
     color: ${(theme) => theme.alias.brand.value()}
 `;
-// would become
 
+//  ↓ ↓ ↓ ↓
+// would become
 const buttonStyle = {
   // original value of brand is #1971c2 and this is darker by 20%
   backgroundColor: "#56A3EA",
@@ -116,7 +117,7 @@ const buttonStyle = css`
     background-color: ${(theme)=>theme.alias.brand.value()}
     color: ${(theme)=>theme.alias.brand.value()}
 `;
-
+//  ↓ ↓ ↓ ↓
 // would become
 const buttonStyle = ".stone_<hash>"
 
@@ -147,7 +148,7 @@ const buttonStyle = css`
     color: ${(theme) => theme.alias.brand.value()}
 `;
 
-// would go ahead and be added to a `demo.css` file like
+// would go ahead and be added to a `demo.css` file like  ↓ ↓ ↓ ↓
 ```
 
 ```css
@@ -156,6 +157,41 @@ const buttonStyle = css`
   color: #56a3ea;
 }
 ```
+
+### `ReactNativeInlineAdaptor`
+
+This is a simple runtime adaptor that converts the given css into a `Stylesheet.create` object that is returned as required, so you can now have single reusable css snippets that can be used both on the web and react native.
+
+The adaptor does support converting single style props to multi boundary props
+
+- currently supports doing this for `margin, padding`
+
+eg:
+
+```js
+import { ReactNativeInlineAdaptor } from "@barelyhuman/stone-react-native";
+
+const adaptors = {
+  css: ReactNativeInlineAdaptor,
+};
+
+const css = createCSS({}, adaptors);
+
+const style = css`
+  margin: 10;
+`;
+
+//  ↓ ↓ ↓ ↓
+
+const style = {
+  marginTop: 10,
+  marginRight: 10,
+  marginLeft: 10,
+  marginBottom: 10,
+};
+```
+
+- You can also use `background: #fff` and that'll be converted to `{backgroundColor:"#fff"}` for you, bringing us back to the original point, you can re-use web css here.
 
 ## Factories
 
